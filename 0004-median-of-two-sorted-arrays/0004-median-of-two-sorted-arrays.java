@@ -1,21 +1,24 @@
+import java.util.Arrays;
+
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        ArrayList<Double>res=new ArrayList<>();
-        for(double num:nums1){
-            res.add(num);
+        
+        int[] mergedArrays = new int[nums1.length + nums2.length];
+
+        System.arraycopy(nums1, 0, mergedArrays, 0, nums1.length);
+        System.arraycopy(nums2, 0, mergedArrays, nums1.length, nums2.length);
+
+        Arrays.sort(mergedArrays);
+
+        int size = mergedArrays.length;
+        double median;
+
+        if (size % 2 == 0) {
+            median = (mergedArrays[size / 2 - 1] + mergedArrays[size / 2]) / 2.0;
+        } else {
+            median = mergedArrays[size / 2];
         }
-        for(double num2:nums2){
-            res.add(num2);
-        }
-        Collections.sort(res);
 
-        int mid=res.size()/2;
-
-        if(res.size()%2==0){
-            return (res.get(mid)+res.get(mid-1))/2;
-        }
-        return res.get(mid);
-
-
+        return median;
     }
 }
